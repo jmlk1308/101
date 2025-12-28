@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="profile-section">
+        <div class="profile-img"><span id="professor-initial">P</span></div>
+        <h3 id="professor-name">Prof. ...</h3>
+    </div>
+
+    <nav class="nav-menu">
+        <ul>
+            <li class="nav-item active">
+                <a href="professor-dashboard.html" class="nav-link">
+                    <div class="nav-content"><i class="fa-solid fa-table-columns"></i> <span>Dashboard</span></div>
+                </a>
+            </li>
+
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <div class="nav-content"><i class="fa-solid fa-person-chalkboard"></i> <span>Lesson</span></div>
+                </a>
+                <ul class="submenu">
+                    <li><a href="view-lesson.html">View Lesson</a></li>
+                    <li><a href="upload-lesson.html">Add Lesson</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item has-submenu">
+                <a href="#" class="nav-link">
+                    <div class="nav-content"><i class="fa-solid fa-puzzle-piece"></i> <span>Quizzes</span></div>
+                </a>
+                <ul class="submenu">
+                    <li><a href="quizzes.html">View Quizzes</a></li>
+                    <li><a href="create-quiz.html">Add Quiz</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="openProfessorProfile()">
+                    <div class="nav-content"><i class="fa-solid fa-user-cog"></i> <span>Profile Settings</span></div>
+                </a>
+            </li>
+
+            <li class="nav-item logout">
+                <a href="#" class="nav-link" onclick="logout()">
+                    <div class="nav-content"><i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span></div>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<main class="main-content">
+    <!-- Notification Bell -->
+    <div class="notification-wrapper">
+        <button class="notification-btn" onclick="toggleNotifications()">
+            <i class="fas fa-bell"></i>
+            <span id="notification-badge" class="notif-badge" style="display: none;">0</span>
+        </button>
+        <div id="notification-dropdown" class="notif-dropdown">
+            <div class="notif-header">
+                <span>Notifications</span>
+                <button onclick="markAllAsRead()" style="background: none; border: none; color: #3182ce; cursor: pointer; font-size: 0.8rem;">
+                    Mark all as read
+                </button>
+            </div>
+            <div id="notification-list" class="notif-list">
+                <!-- Notifications will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="brand-title">CS Interactive Learning Hub</div>
+
+    <div class="page-header">
+        <h3>DASHBOARD</h3>
+        <h1>Overview</h1>
+    </div>
+
+    <div class="cards-grid">
+        <div class="info-card">
+            <div class="icon-circle blue-bg"><i class="fa-solid fa-user-group"></i></div>
+            <div class="card-text">
+                <h2 id="totalStudents">0</h2> <p>Total Students</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="icon-circle green-bg"><i class="fa-solid fa-book"></i></div>
+            <div class="card-text">
+                <h2 id="activeSubjects">0</h2> <p>Active Subjects</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="icon-circle yellow-bg"><i class="fa-solid fa-file-video"></i></div>
+            <div class="card-text">
+                <h2 id="totalLessons">0</h2> <p>Total Lessons</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Professor Profile Modal -->
+<div class="modal" id="professor-profile-modal">
+    <div class="modal-content">
+        <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:20px;">
+            <h3>Professor Profile</h3>
+            <button onclick="closeProfessorProfile()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+
+        <div class="profile-container" style="display: flex; gap: 30px;">
+            <!-- Left: Profile Picture -->
+            <div class="profile-picture-section" style="flex: 1; max-width: 250px;">
+                <div class="profile-card" style="background: #f8fafc; padding: 20px; border-radius: 12px; text-align: center;">
+                    <div id="professor-profile-preview" class="profile-preview">
+                        <i class="fas fa-user-tie profile-icon" id="professor-profile-icon"></i>
+                        <img id="professor-profile-img" src="" alt="Profile" class="profile-img">
+                    </div>
+                    <input type="file" id="professor-profile-upload" accept="image/*" style="display: none;">
+                    <button onclick="document.getElementById('professor-profile-upload').click()" class="btn btn-primary" style="margin-top: 10px; padding: 8px 15px; font-size: 0.9rem;">
+                        <i class="fas fa-upload"></i> Change Picture
+                    </button>
+                    <p style="color: #64748b; font-size: 0.8rem; margin-top: 10px;">
+                        JPG, PNG or GIF, max 2MB
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: Profile Form -->
+            <div class="profile-form-section" style="flex: 2;">
+                <form id="professor-profile-form">
+                    <div class="form-group">
+                        <label>Professor ID</label>
+                        <input type="text" id="professor-id" class="form-control" readonly style="background: #f1f5f9;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="professor-fullname" class="form-control" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="professor-email" class="form-control" placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="professor-phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Department/Course</label>
+                        <input type="text" id="professor-course" class="form-control" readonly style="background: #f1f5f9;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Specialization</label>
+                        <input type="text" id="professor-specialization" class="form-control" placeholder="Enter your specialization">
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="openChangePassword()">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="closeProfessorProfile()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Professor Change Password Modal -->
+<div class="modal" id="professor-password-modal">
+    <div class="modal-content">
+        <div class="modal-header" style="display:flex; justify-content:space-between; margin-bottom:20px;">
+            <h3>Change Password</h3>
+            <button onclick="closePasswordModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+        </div>
+
+        <form id="professor-password-form">
+            <div class="form-group">
+                <label>Current Password</label>
+                <input type="password" id="current-password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" id="new-password" class="form-control" required minlength="6">
+                <div id="password-strength" class="password-strength">
+                    <div class="password-strength-bar"></div>
+                </div>
+                <small style="color: #64748b;">Password must be at least 6 characters long</small>
+            </div>
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="confirm-password" class="form-control" required>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                <button type="button" class="btn btn-danger" onclick="closePasswordModal()">Cancel</button>
+                <button type="submit" class="btn btn-success">Change Password</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/professor.js"></script>
+
+</body>
+</html>

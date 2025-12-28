@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - UEP Learning Hub</title>
+    <link rel="stylesheet" href="../css/uep-login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="login-container">
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="logo-text">
+                <h1>UEP Learning Hub</h1>
+                <span>University of Eastern Philippines - Catarman</span>
+            </div>
+        </div>
+        <div class="role-badge">
+            <i class="fas fa-user-graduate"></i> Student Login
+        </div>
+    </div>
+
+    <div class="login-form">
+        <div class="response-message" id="responseMessage"></div>
+
+        <h2 class="form-title">Student Login</h2>
+
+        <div class="login-info">
+            <strong><i class="fas fa-info-circle"></i> Student Access:</strong><br>
+            • Use your UEP email or student number<br>
+            • Access to courses and materials<br>
+            • Contact admin for account creation
+        </div>
+
+        <form id="loginForm" method="POST">
+            <div class="input-group">
+                <label for="identifier">
+                    <i class="fas fa-id-card"></i> Email or Student Number
+                </label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="identifier" name="identifier"
+                           placeholder="student@uep.edu.ph or 2020-00123" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">
+                    <i class="fas fa-key"></i> Password
+                </label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" name="password"
+                           placeholder="Enter your password" required>
+                    <button type="button" class="password-toggle" onclick="auth.togglePasswordVisibility('password', this)">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+                <div class="forgot-password">
+                    <a href="student-forgot-password.html">
+                        <i class="fas fa-question-circle"></i> Forgot Password?
+                    </a>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginButton">
+                <span>Login as Student</span>
+                <i class="fas fa-sign-in-alt"></i>
+            </button>
+        </form>
+
+        <div class="footer">
+            <p class="uep-brand">UEP <span>Learning Hub</span> &copy; 2024</p>
+            <p>University of Eastern Philippines - Catarman Campus</p>
+            <p><small>For faculty/admin access, please use the appropriate login portals.</small></p>
+        </div>
+    </div>
+</div>
+
+<script src="../js/auth.js"></script>
+<script src="js/student-login.js"></script>
+</body>
+</html>

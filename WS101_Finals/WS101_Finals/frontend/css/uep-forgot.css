@@ -1,0 +1,123 @@
+/* Forgot Password Specific Styles */
+.forgot-container {
+    width: 100%;
+    max-width: 480px;
+    background-color: var(--uep-white);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 51, 102, 0.15);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.forgot-container:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 51, 102, 0.2);
+}
+
+.reset-instructions {
+    background-color: #E3F2FD;
+    border-left: 5px solid var(--uep-blue);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 0 8px 8px 0;
+}
+
+.reset-instructions h4 {
+    color: var(--uep-blue);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.reset-instructions p {
+    color: #555;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.reset-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(to right, var(--uep-blue), var(--uep-light-blue));
+    color: var(--uep-white);
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    letter-spacing: 0.5px;
+}
+
+.reset-btn:hover {
+    background: linear-gradient(to right, #002244, var(--uep-gold));
+    box-shadow: 0 8px 20px rgba(0, 51, 102, 0.25);
+    transform: translateY(-2px);
+}
+
+.reset-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    color: var(--uep-blue);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-link:hover {
+    color: var(--uep-light-blue);
+    text-decoration: underline;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.button-group .reset-btn {
+    flex: 2;
+}
+
+.button-group .back-btn {
+    flex: 1;
+    background: var(--uep-gray);
+    color: var(--uep-blue);
+    border: 2px solid #E0E7FF;
+}
+
+.button-group .back-btn:hover {
+    background: #e0e7ff;
+    box-shadow: 0 4px 12px rgba(0, 51, 102, 0.1);
+}
+
+@media (max-width: 576px) {
+    .forgot-container {
+        max-width: 100%;
+        border-radius: 15px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
